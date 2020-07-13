@@ -1,0 +1,29 @@
+{
+  "name": "cjs-task-puppeteer",
+  "version": "1.0.0",
+  "description": "cjs-task wrapper for google chrome's puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akamaozu/cjs-task-puppeteer.git"
+  },
+  "keywords": [
+    "cjs-task",
+    "puppeteer",
+    "google",
+    "chrome"
+  ],
+  "author": "akamaozu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akamaozu/cjs-task-puppeteer/issues"
+  },
+  "homepage": "https://github.com/Akamaozu/cjs-task-puppeteer#readme",
+  "dependencies": {
+    "cjs-task": "^2.3.0",
+    "puppeteer": "^5.0.0"
+  }
+}
