@@ -2,7 +2,6 @@
 // - task variables: [ 'browser-page' ]
 
 module.exports = function( task, config ){
-
   if( ! config ) config = {};
   if( typeof config.url !== 'string' ) return task.end( new Error( 'no page url given to navigate to' ) );
 

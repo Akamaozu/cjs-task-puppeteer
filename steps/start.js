@@ -1,11 +1,15 @@
 var puppeteer = require('puppeteer');
 
 module.exports = function( task, config ){
-
-  if( !config ) config = {};
+  if( ! config ) config = {};
 
   config.load_images = config.hasOwnProperty( 'load_images' ) ? config.load_images : false;
   config.ignore_ssl_errors = config.hasOwnProperty( 'ignore_ssl_errors' ) ? config.ignore_ssl_errors : true;
+  config.no_sandbox = config.hasOwnProperty( 'no_sandbox' ) ? config.no_sandbox : true;
+  config.disable_setuid_sandbox = config.hasOwnProperty( 'disable_setuid_sandbox' ) ? config.disable_setuid_sandbox : true;
+  config.disable_dev_shm_usage = config.hasOwnProperty( 'disable_dev_shm_usage' ) ? config.disable_dev_shm_usage : true;
+  config.disable_accelerated_2d_canvas = config.hasOwnProperty( 'disable_accelerated_2d_canvas' ) ? config.disable_accelerated_2d_canvas : true;
+  config.disable_gpu = config.hasOwnProperty( 'disable_gpu' ) ? config.disable_gpu : true;
 
   // determine logging verbosity
     var set_logging_verbosity = false;
@@ -28,16 +32,16 @@ module.exports = function( task, config ){
     if( ! set_logging_verbosity ) config.verbose = true;
 
   task.step( 'start puppeteer', function(){
+    var puppeteer_launch_args = [];
+    if( config.no_sandbox ) puppeteer_launch_args.push( '--no-sandbox' );
+    if( config.disable_setuid_sandbox ) puppeteer_launch_args.push( '--disable-setuid-sandbox' );
+    if( config.disable_dev_shm_usage ) puppeteer_launch_args.push( '--disable-dev-shm-usage' );
+    if( config.disable_accelerated_2d_canvas ) puppeteer_launch_args.push( '--disable-accelerated-2d-canvas' );
+    if( config.disable_gpu ) puppeteer_launch_args.push( '--disable-gpu' );
 
     puppeteer.launch({
       ignoreHTTPSErrors: config.ignore_ssl_errors,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--disable-gpu'
-      ]
+      args: puppeteer_launch_args
     })
       .then( function( browser ){
         if( config.verbose ) console.log( ' - [browser] started' );
