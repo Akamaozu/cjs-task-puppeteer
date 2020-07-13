@@ -1,6 +1,6 @@
 {
   "name": "cjs-task-puppeteer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cjs-task wrapper for google chrome's puppeteer",
   "main": "index.js",
   "scripts": {
