@@ -3,6 +3,7 @@ var puppeteer = require('puppeteer');
 module.exports = function( task, config ){
   if( ! config ) config = {};
 
+  config.headless = config.hasOwnProperty( 'headless' ) ? config.headless : true;
   config.load_images = config.hasOwnProperty( 'load_images' ) ? config.load_images : false;
   config.ignore_ssl_errors = config.hasOwnProperty( 'ignore_ssl_errors' ) ? config.ignore_ssl_errors : true;
   config.no_sandbox = config.hasOwnProperty( 'no_sandbox' ) ? config.no_sandbox : true;
@@ -33,6 +34,7 @@ module.exports = function( task, config ){
 
   task.step( 'start puppeteer', function(){
     var puppeteer_launch_args = [];
+
     if( config.no_sandbox ) puppeteer_launch_args.push( '--no-sandbox' );
     if( config.disable_setuid_sandbox ) puppeteer_launch_args.push( '--disable-setuid-sandbox' );
     if( config.disable_dev_shm_usage ) puppeteer_launch_args.push( '--disable-dev-shm-usage' );
@@ -41,7 +43,8 @@ module.exports = function( task, config ){
 
     puppeteer.launch({
       ignoreHTTPSErrors: config.ignore_ssl_errors,
-      args: puppeteer_launch_args
+      args: puppeteer_launch_args,
+      headless: config.headless
     })
       .then( function( browser ){
         if( config.verbose ) console.log( ' - [browser] started' );
