@@ -44,7 +44,8 @@ module.exports = function( task, config ){
     puppeteer.launch({
       ignoreHTTPSErrors: config.ignore_ssl_errors,
       args: puppeteer_launch_args,
-      headless: config.headless
+      headless: config.headless,
+      defaultViewport: null
     })
       .then( function( browser ){
         if( config.verbose ) console.log( ' - [browser] started' );
